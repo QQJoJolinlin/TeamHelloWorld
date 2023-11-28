@@ -1,5 +1,6 @@
 package team;
 
+import java.util.Objects;
 
 public class Card implements Comparable<Card>{
 	
@@ -48,6 +49,23 @@ public class Card implements Comparable<Card>{
 	@Override
 	public int compareTo(Card o) {
 		return this.getValue() - o.getValue();
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(value);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Card other = (Card) obj;
+		return value == other.value;
 	}
 	
 	

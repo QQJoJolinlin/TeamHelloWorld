@@ -6,6 +6,7 @@ import java.util.Collections;
 public class Game {
 	private ArrayList<Player> players = new ArrayList<>();
 	private ArrayList<Card> deck = new ArrayList<>();
+	Table table = new Table(2);
 
 	public Game(String[] names) {
 		deck = createDeck();
@@ -22,6 +23,13 @@ public class Game {
 		return deck;
 	}
 	
+	/**
+	 * @return the t
+	 */
+	public Table getTable() {
+		return table;
+	}
+
 	public void startRound() {
 		Collections.shuffle(deck);
 		int i = 0;

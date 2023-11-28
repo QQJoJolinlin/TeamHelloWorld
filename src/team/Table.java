@@ -15,8 +15,9 @@ public class Table {
 		this.amount = amount;
 	}
 	
-	public boolean playCards(ArrayList<Card> cards) {
+	public boolean addCards(ArrayList<Card> cards) {
 		//TODO unfinished method
+		pile.addAll(cards);
 		return false;
 	}
 	
