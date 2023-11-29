@@ -6,14 +6,15 @@ import java.util.Collections;
 public class Game {
 	private ArrayList<Player> players = new ArrayList<>();
 	private ArrayList<Card> deck = new ArrayList<>();
-	Table table = new Table(2);
+	Table table;
+	int currentPlayer = 0;
 
 	public Game(String[] names) {
 		deck = createDeck();
 		for(String s: names) {
 			players.add(new Player(s));
 		}
-		
+		table = new Table(0);
 	}
 	
 	/**
@@ -41,11 +42,12 @@ public class Game {
 			if(i > players.size() -1)
 				i=0;
 		}
-		
-		
 	}
 	
 	public boolean playRound() {
+		while(!allPlayersPassed()) {
+			
+		}
 		//TODO unfinished method
 		return false;
 		
@@ -75,6 +77,22 @@ public class Game {
 	 */
 	public ArrayList<Player> getPlayers() {
 		return players;
+	}
+	
+	public int totalCards() {
+		int totalCards = 0;
+		for(Player p : players) {
+			totalCards = totalCards + p.getCardsRemaining();
+		}
+		return totalCards;
+	}
+	
+	public boolean allPlayersPassed() {
+		for(Player p : players) {
+			if(!p.isPassed())
+				return false;
+		}
+		return true;
 	}
 
 	

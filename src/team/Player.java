@@ -8,9 +8,13 @@ import java.util.Map.Entry;
 
 public class Player {
 	String name;
+	int cardsRemaining;
+	boolean passed = false;
+	
 	ArrayList<Card> hand = new ArrayList<>();
 	ArrayList<Card> validCards = new ArrayList<>();
 	ArrayList<Card> invalidCards = new ArrayList<>();
+	
 	
 	/**
 	 * @param name
@@ -19,8 +23,30 @@ public class Player {
 		this.name = name;
 	}
 	
-	public boolean playCards (Table t) {
-		//TODO unfinished method
+	/**
+	 * @return the passed
+	 */
+	public boolean isPassed() {
+		return passed;
+	}
+
+	public boolean playCards (ArrayList<Card> cards,Table t) {
+		getValidCards(t);
+		if(validCards.size() == 0 || cards.size() == 0)
+			passed = true;
+		if(validCards.containsAll(cards)) {
+			for(int i = 0; i < cards.size()-1; i++) {
+				if(cards.get(i).equals(cards.get(i+1)))
+					continue;
+				else 
+					return false;
+			}
+			t.addCards(cards);
+			hand.removeAll(cards);
+			if(t.getAmount() == 0)
+				t.setAmount(cards.size());
+			return true;
+		}
 		return false;
 	}
 	
@@ -62,6 +88,12 @@ public class Player {
 		validCards.removeIf(x -> hm.get(x) < t.getAmount());
 
 		return validCards;
+	}
+	
+	public int getCardsRemaining() {
+		cardsRemaining = hand.size();
+		return cardsRemaining;
+		
 	}
 	
 	

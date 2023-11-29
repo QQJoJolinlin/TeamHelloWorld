@@ -15,10 +15,16 @@ public class Table {
 		this.amount = amount;
 	}
 	
-	public boolean addCards(ArrayList<Card> cards) {
-		//TODO unfinished method
+	/**
+	 * @param amount the amount to set
+	 */
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	public void addCards(ArrayList<Card> cards) {
 		pile.addAll(cards);
-		return false;
+		Collections.sort(pile, Collections.reverseOrder());
 	}
 	
 	public Card getTopCard() {
