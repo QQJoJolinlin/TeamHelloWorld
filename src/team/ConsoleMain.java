@@ -34,8 +34,8 @@ public class ConsoleMain {
 		Player testPlayer = testGame.getPlayers().get(2);
 		
 		ArrayList<Card> testCards = new ArrayList<>();
-		testCards.add(new Card(Suit.Clubs, "3", 1));
-		testCards.add(new Card(Suit.Clubs, "3", 1));
+		testCards.add(new Card(Suit.clubs, "3", 1));
+		testCards.add(new Card(Suit.clubs, "3", 1));
 		
 		testGame.getTable().addCards(testCards);
 		

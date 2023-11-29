@@ -63,10 +63,10 @@ public class Game {
 			for(int i = 3; i < 11; i++) {
 				deck.add(new Card(s, "" + i, i - 2));
 			}
-			deck.add(new Card(s, "Jack", 9));
-			deck.add(new Card(s, "Queen", 10));
-			deck.add(new Card(s, "King", 11));
-			deck.add(new Card(s, "Ace", 12));
+			deck.add(new Card(s, "jack", 9));
+			deck.add(new Card(s, "queen", 10));
+			deck.add(new Card(s, "king", 11));
+			deck.add(new Card(s, "ace", 12));
 			deck.add(new Card(s, "2", 13));
 		}
 		return deck;
