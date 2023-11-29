@@ -14,7 +14,7 @@ public class Game {
 		for(String s: names) {
 			players.add(new Player(s));
 		}
-		table = new Table(0);
+		table = new Table(2);
 	}
 	
 	/**
