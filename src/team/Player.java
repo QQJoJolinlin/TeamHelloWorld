@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class Player {
 	String name;
@@ -13,7 +12,6 @@ public class Player {
 	
 	ArrayList<Card> hand = new ArrayList<>();
 	ArrayList<Card> validCards = new ArrayList<>();
-	ArrayList<Card> invalidCards = new ArrayList<>();
 	
 	
 	/**
@@ -29,36 +27,19 @@ public class Player {
 	public boolean isPassed() {
 		return passed;
 	}
+	
+	/**
+	 * @param passed the passed to set
+	 */
+	public void setPassed(boolean passed) {
+		this.passed = passed;
+	}
 
-	public boolean playCards (ArrayList<Card> cards,Table t) {
-		getValidCards(t);
-		if(validCards.size() == 0 || cards.size() == 0)
-			passed = true;
-		if(validCards.containsAll(cards)) {
-			for(int i = 0; i < cards.size()-1; i++) {
-				if(cards.get(i).equals(cards.get(i+1)))
-					continue;
-				else 
-					return false;
-			}
-			t.addCards(cards);
-			hand.removeAll(cards);
-			if(t.getAmount() == 0)
-				t.setAmount(cards.size());
-			return true;
-		}
-		return false;
+	public int getCardsRemaining() {
+		cardsRemaining = hand.size();
+		return cardsRemaining;	
 	}
 	
-	public void addCard(Card c) {
-		hand.add(c);
-	}
-
-	@Override
-	public String toString() {
-		return "Player [name=" + name + "]";
-	}
-
 	/**
 	 * @return the hand
 	 */
@@ -67,6 +48,54 @@ public class Player {
 		return hand;
 	}
 	
+	/**
+	 * Adds a card to the player's hand. Used when dealing initial cards.
+	 * 
+	 * @param c - card to be added
+	 */
+	public void addCard(Card c) {
+		hand.add(c);
+	}
+	
+	@Override
+	public String toString() {
+		return "Player [name=" + name + "]";
+	}
+	
+	/**
+	 * Plays the given cards. if cards is empty or null the player will pass their turn. Method also checks cards 
+	 * to make sure they all have the same value.
+	 * 
+	 * @param cards - cards to be played
+	 * @param t - table to add the cards to
+	 * @return true if everything worked properly or false if something went wrong
+	 */
+	public boolean playCards (ArrayList<Card> cards, Table t) {
+		getValidCards(t);
+		if(validCards.size() == 0 || cards.size() == 0 || validCards == null)
+			passed = true;
+		if(validCards.containsAll(cards)) {
+			for(int i = 0; i < cards.size()-1; i++) {
+				if(cards.get(i).equals(cards.get(i+1)))
+					continue;
+				else 
+					return false;
+			}
+			if(t.getAmount() == 0)
+				t.setAmount(cards.size());
+			t.addCards(cards);
+			hand.removeAll(cards);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Gets the in the players hand that they can player based on the table
+	 * 
+	 * @param t - the current table
+	 * @return ArrayList with all the valid cards
+	 */
 	public ArrayList<Card> getValidCards(Table t) {
 		Collections.sort(hand);
 		Card topCard = t.getTopCard();
@@ -77,6 +106,7 @@ public class Player {
 				break;
 			}
 		}
+		
 		validCards = new ArrayList<>(hand.subList(indexSplit, hand.size()));
 		
 		Map<Card, Integer> hm = new HashMap<>();
@@ -90,12 +120,4 @@ public class Player {
 		return validCards;
 	}
 	
-	public int getCardsRemaining() {
-		cardsRemaining = hand.size();
-		return cardsRemaining;
-		
-	}
-	
-	
-
 }
