@@ -71,6 +71,7 @@ public class Player {
 	 * @return true if everything worked properly or false if something went wrong
 	 */
 	public boolean playCards (ArrayList<Card> cards, Table t) {
+		//Add check for if player is passed or reset passed boolean
 		getValidCards(t);
 		if(validCards.size() == 0 || cards.size() == 0 || validCards == null)
 			passed = true;

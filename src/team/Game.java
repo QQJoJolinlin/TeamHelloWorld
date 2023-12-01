@@ -90,6 +90,7 @@ public class Game {
 				if(currentPlayerIndex > players.size() -1)
 					currentPlayerIndex = 0;
 			}
+			inputCards.clear();
 		}
 		table.setAmount(0);
 		table.clearPile();
