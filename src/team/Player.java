@@ -40,21 +40,11 @@ public class Player {
 		return cardsRemaining;	
 	}
 	
-<<<<<<< HEAD
-	public void addCard(Card c) {
-		hand.add(c);
-	}
-
-	@Override
-	public String toString() {
-		return "Player [name=" + name + "]";
-	}
 	public String getName() {
 		return this.name;
 	}
 
-=======
->>>>>>> branch 'master' of https://github.com/QQJoJolinlin/TeamHelloWorld.git
+
 	/**
 	 * @return the hand
 	 */

@@ -53,10 +53,10 @@ public class ScumGui extends JFrame {
 	 * Create the frame.
 	 */
 	public ScumGui() {
-		String[] names = {"bob", "mike", "carl"};
+		String[] names = {"bob", "mike", "carl", "Jill"};
 		ArrayList<JLabel> players = new ArrayList();
 		Game testGame = new Game(names);
-		testGame.startRound();
+		testGame.startGame();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1161, 748);
@@ -151,7 +151,7 @@ public class ScumGui extends JFrame {
 				+"_of_" +currentCard.getSuit()+".png");
 		try{
 			Image image = ImageIO.read(ScumGui.class.getResource("/resources/" +currentCard.getName()
-					+"_of_" +currentCard.getSuit()+".png")).getScaledInstance(50, 70, Image.SCALE_DEFAULT); // Finally got it to fucking work    
+					+"_of_" +currentCard.getSuit()+".png")).getScaledInstance(70, 100, Image.SCALE_DEFAULT); // Finally got it to fucking work    
 			card.setIcon(new ImageIcon(image));
 		} 
 		catch (Exception e) {
