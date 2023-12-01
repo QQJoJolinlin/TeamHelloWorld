@@ -8,7 +8,6 @@ import java.util.Collections;
  * This is a main class for testing the other classes in the console
  */
 public class ConsoleMain {
-
 	public static void main(String[] args) {
 		String[] names = {"bob", "mike", "carl"};
 		Game testGame = new Game(names);

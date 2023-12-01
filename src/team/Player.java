@@ -58,6 +58,9 @@ public class Player {
 	public String toString() {
 		return "Player [name=" + name + "]";
 	}
+	public String getName() {
+		return this.name;
+	}
 
 	/**
 	 * @return the hand
