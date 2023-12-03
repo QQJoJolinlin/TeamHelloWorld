@@ -20,7 +20,7 @@ public class ConsoleMain {
 		
 		System.out.println();
 		
-		testGame.startGame();
+		testGame.startRound();;
 		
 		testGame.getPlayers().forEach(x -> {
 			System.out.println(x.name + " hand");
@@ -36,9 +36,9 @@ public class ConsoleMain {
 		testCards.add(new Card(Suit.clubs, "3", 1));
 		testCards.add(new Card(Suit.clubs, "3", 1));
 		
-		testGame.getTable().addCards(testCards);
+		//testGame.getTable().addCards(testCards);
 		
-		System.out.println(testPlayer.getValidCards(testGame.getTable()));
+		//System.out.println(testPlayer.getValidCards(testGame.getTable()));
 		
 		
 	

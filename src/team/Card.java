@@ -2,11 +2,16 @@ package team;
 
 import java.util.Objects;
 
+import javax.swing.ImageIcon;
+
+
+
 public class Card implements Comparable<Card>{
 	
 	private String name;
 	private Suit suit;
 	private int value;
+	
 	
 	/**
 	 * @param name
@@ -17,7 +22,10 @@ public class Card implements Comparable<Card>{
 		this.name = name;
 		this.suit = suit;
 		this.value = value;
+		
 	}
+
+	
 
 	/**
 	 * @return the name

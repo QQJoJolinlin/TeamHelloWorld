@@ -13,6 +13,7 @@ import GuiDay2.OverlapLayout;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
@@ -56,7 +57,7 @@ public class ScumGui extends JFrame {
 		String[] names = {"bob", "mike", "carl", "Jill"};
 		ArrayList<JLabel> players = new ArrayList();
 		Game testGame = new Game(names);
-		testGame.startGame();
+		testGame.startRound();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1161, 748);
@@ -86,38 +87,19 @@ public class ScumGui extends JFrame {
 		{
 			playersHand.add(displayCard(testGame.getPlayers().get(0).getHand().get(i)));
 		}
-		
-		
+		BorderLayout b = new BorderLayout();
+	  String[] ss = {b.SOUTH, b.WEST, b.NORTH, b.EAST};
 		//Display Players
-	players = displayPlayers(testGame.getPlayers());
+	  players = displayPlayers(testGame.getPlayers());
 		for(int i = 0; i < testGame.getPlayers().size(); i++)
 		{
-			switch(i) {
-			case 0:
-				players.get(i).setFont(new Font("Times New Roman", Font.BOLD, 24));
-				players.get(i).setHorizontalAlignment(SwingConstants.CENTER);
-				panel.add(players.get(i), BorderLayout.SOUTH);
-				break;
-			case 1:
-				players.get(i).setFont(new Font("Times New Roman", Font.BOLD, 24));
-				players.get(i).setHorizontalAlignment(SwingConstants.CENTER);
-				panel.add(players.get(i), BorderLayout.NORTH);
-				break;
-			case 2:
-				players.get(i).setFont(new Font("Times New Roman", Font.BOLD, 24));
-				players.get(i).setHorizontalAlignment(SwingConstants.CENTER);
-				panel.add(players.get(i), BorderLayout.EAST);
-				break;
-			case 3:
-				players.get(i).setFont(new Font("Times New Roman", Font.BOLD, 24));
-				players.get(i).setHorizontalAlignment(SwingConstants.CENTER);
-				panel.add(players.get(i), BorderLayout.WEST);
-				break;
-				default: System.out.println("Something has Broken");
-					break;
+			players.get(i).setFont(new Font("Times New Roman", Font.BOLD, 24));
+			players.get(i).setHorizontalAlignment(SwingConstants.CENTER);
+			panel.add(players.get(i), ss[i]);
+			
 			}
 	}
-	}
+	
 	
 	public static ArrayList<JLabel> displayPlayers(ArrayList<Player> players) {
 		ArrayList<JLabel> playerLabels = new ArrayList();
