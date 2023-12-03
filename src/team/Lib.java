@@ -2,7 +2,7 @@ package team;
 
 import java.util.ArrayList;
 
-import scum.Card;
+import team.Card;
 
 public class Lib {
 	/*
