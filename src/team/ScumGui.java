@@ -10,8 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import GuiDay2.DoingTheGuiStuff;
-import GuiDay2.OverlapLayout;
+
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -81,7 +80,7 @@ public class ScumGui extends JFrame {
 		ArrayList<JLabel> players = new ArrayList();
 		Game testGame = new Game(names);
 		Table table = new Table(0);
-		testGame.startGame();
+		testGame.play();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1161, 748);
@@ -185,14 +184,30 @@ public class ScumGui extends JFrame {
 	  String[] ss = {b.SOUTH, b.WEST, b.NORTH, b.EAST};
 		//Display Players
 	  players = displayPlayers(testGame.getPlayers());
-		for(int i = 0; i < testGame.getPlayers().size(); i++)
+		for(int i = 1; i < testGame.getPlayers().size(); i++)
 		{
 			players.get(i).setFont(new Font("Times New Roman", Font.BOLD, 24));
 			players.get(i).setHorizontalAlignment(SwingConstants.CENTER);
 			panel.add(players.get(i), ss[i]);
 			
 			}
-	}
+		JButton passBtn = new JButton("Pass");
+		passBtn.addActionListener(new ActionListener() {
+			
+			
+			public void actionPerformed(ActionEvent e) {
+				
+			//Pass Button	
+			}
+		});
+		JPanel namePass = new JPanel();
+		namePass.setBackground(new Color(0, 128, 64));
+		panel.add(namePass, BorderLayout.SOUTH);
+		namePass.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		players.get(0).setFont(new Font("Times New Roman", Font.BOLD, 24));
+		namePass.add(players.get(0), BorderLayout.SOUTH);
+		namePass.add(passBtn);
+}
 	
 	
 	
@@ -261,6 +276,9 @@ public class ScumGui extends JFrame {
 					} catch (Exception e1) {
 						System.out.println("Bad Things Happening");
 					}
+					//AiPlayer
+					//AiPlayer
+					//AiPlayer
 				}
 			}
 		});
@@ -309,7 +327,6 @@ public class ScumGui extends JFrame {
 		lose.setFont(new Font("Times New Roman", Font.PLAIN, 61));
 		return lose;
 	}
-	
 	//Takes the information from the image and uses it to figure out what card is being played and then adds it to the playedCard array, IF this method returns true the card is deleted from players hands and placed in 
 	//the pile ONLY visually
 	public static boolean playCard(String Card, Game game) {
@@ -321,6 +338,13 @@ public class ScumGui extends JFrame {
 			if((game.getPlayers().get(0).getHand().get(i).getValue() == tempInt) && (game.getPlayers().get(0).getHand().get(i).getSuit().toString().equals(Card.substring(Card.indexOf(" ")+1))))
 			{
 			playedCard.add(game.getPlayers().get(0).getHand().get(i));
+			System.out.println(playedCard);
+			if(game.checkValidCards(playedCard))
+			{
+				game.getCurrentPlayer().playCards(playedCard, game.getTable());
+				
+				
+			}
 			/*
 		     The playedCard array now holds the card that was clicked on by the user we now need to logically check and see if 
 		     this card is valid to be played by the user, and if it is then it need to be played, and this method needs to return true
