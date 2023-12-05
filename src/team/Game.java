@@ -6,7 +6,7 @@ import java.util.Collections;
 public class Game {
 	private ArrayList<Player> players = new ArrayList<>();
 	private ArrayList<Card> deck = new ArrayList<>();
-	ArrayList<Card> table = new ArrayList<Card>();
+	Table table = new Table(0);
 	int currentPlayer = 0;
 
 	public Game(String[] names) {
@@ -89,7 +89,13 @@ public class Game {
 		}
 		return true;
 	}
-
+	public int getCurrentPlayer()
+	{
+		return this.currentPlayer;
+	}
+	public Table getTable() {
+		return this.table;
+	}
 	
 	
 }
