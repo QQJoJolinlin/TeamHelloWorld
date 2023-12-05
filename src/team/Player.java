@@ -78,26 +78,43 @@ public class Player {
 	public boolean playCards (ArrayList<Card> cards, Table t) {
 		//Add check for if player is passed or reset passed boolean
 		if(cards == null) {
+			System.out.println("Number 1 is happeneing"); // added for testing purposes
 			passed = true;
 			return true;
 		}	
-		getValidCards(t);
+	validCards = getValidCards(t);
 		if(validCards.size() == 0 || cards.size() == 0) {
+			System.out.println("Number 2 is happeneing"); // added for testing purpose
 			passed = true;
 			return true;
 		}		
 		if(validCards.containsAll(cards)) {
 			for(int i = 0; i < cards.size()-1; i++) {
 				if(cards.get(i).equals(cards.get(i+1)))
+				{
+					System.out.println("Number 3 is happeneing"); // added for testing purpose
 					continue;
+				}
 				else 
 					return false;
 			}
 			if(t.getAmount() == 0)
 				t.setAmount(cards.size());
 			t.addCards(cards);
-			hand.removeAll(cards);
-			return true;
+			System.out.println("Hand Before Removal:" + hand);
+			System.out.println("Card to be removed:" + cards);
+			for(int i = 0; i < hand.size(); i++) {
+				System.out.print((hand.get(i).getValue() == cards.get(0).getValue()) + " " + (hand.get(i).getSuit().equals(cards.get(0).getSuit())));
+				System.out.println();
+				if((hand.get(i).getSuit().equals(cards.get(0).getSuit())) && (hand.get(i).getValue() == cards.get(0).getValue()))
+				{
+					hand.remove(i);
+					System.out.println("Hand After Removal:" + hand);
+					return true;
+					
+				}
+			}
+			
 		}
 		return false;
 	}

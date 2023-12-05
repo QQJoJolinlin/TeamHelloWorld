@@ -193,8 +193,6 @@ public class ScumGui extends JFrame {
 			}
 		JButton passBtn = new JButton("Pass");
 		passBtn.addActionListener(new ActionListener() {
-			
-			
 			public void actionPerformed(ActionEvent e) {
 				
 			//Pass Button	
@@ -261,7 +259,6 @@ public class ScumGui extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				String card = ((ImageIcon) button.getIcon()).getDescription();
-
 				if (playCard(card, game)) {
 					button.disable();
 					button.setVisible(false);
@@ -342,9 +339,9 @@ public class ScumGui extends JFrame {
 			if(game.checkValidCards(playedCard))
 			{
 				game.getCurrentPlayer().playCards(playedCard, game.getTable());
-				
-				
+				return true;
 			}
+
 			/*
 		     The playedCard array now holds the card that was clicked on by the user we now need to logically check and see if 
 		     this card is valid to be played by the user, and if it is then it need to be played, and this method needs to return true
@@ -359,7 +356,7 @@ public class ScumGui extends JFrame {
 			
 			
 			
-			return true; 
+			return false; 
 			
 			}
 		
