@@ -20,7 +20,7 @@ public class ConsoleMain {
 		
 		System.out.println();
 		
-		testGame.startRound();;
+		testGame.play(null);;
 		
 		testGame.getPlayers().forEach(x -> {
 			System.out.println(x.name + " hand");

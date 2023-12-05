@@ -51,7 +51,8 @@ public class Card implements Comparable<Card>{
 
 	@Override
 	public String toString() {
-		return "Card [name=" + name + ", suit=" + suit + ", value=" + value + "]";
+		return name + " of " + suit;
+		//return "Card [name=" + name + ", suit=" + suit + ", value=" + value + "]";
 	}
 
 	@Override

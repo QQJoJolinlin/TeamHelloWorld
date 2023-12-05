@@ -52,6 +52,9 @@ public class Table {
 	 */
 	public Card getTopCard() {
 		//Sort might be redundant here
+		if(pile == null || pile.size() == 0) {
+			return new Card(Suit.hearts, "Empty Table", 0);
+		}
 		Collections.sort(pile, Collections.reverseOrder());
 		return pile.get(0);
 	}
@@ -61,6 +64,7 @@ public class Table {
 	 */
 	public void clearPile() {
 		pile.clear();
+		amount = 0;
 	}
 
 	

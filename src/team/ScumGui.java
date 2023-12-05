@@ -1,9 +1,11 @@
 package team;
 
 import java.awt.EventQueue;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -73,18 +75,19 @@ public class ScumGui extends JFrame {
 	 * Create the frame.
 	 */
 	public ScumGui() {
-		String[] names = {"bob", "mike", "carl", "Jill"};
+		String name = JOptionPane.showInputDialog("Enter your name: "); // Get Player Name
+		Scanner scnr = new Scanner(System.in);
+		String[] names = {name, "mike", "carl", "Jill"};
 		ArrayList<JLabel> players = new ArrayList();
 		Game testGame = new Game(names);
 		Table table = new Table(0);
-		testGame.startRound();
+		testGame.startGame();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1161, 748);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(128, 64, 64));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(10, 10));
 		
@@ -93,6 +96,7 @@ public class ScumGui extends JFrame {
 		panel.setBackground(new Color(0, 128, 64));
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));
+	
 		
 		panel_1 = new JPanel();
 		panel_1.setBorder(null);
@@ -170,10 +174,12 @@ public class ScumGui extends JFrame {
 		// Adding AI player Card infront of them }
 		
 		
+	
+		
 		// Adding Cards
 		for(int i = 0; i < testGame.getPlayers().get(0).getHand().size(); i++)
 		{
-			playersHand.add(displayCard(testGame.getPlayers().get(0).getHand().get(i), testGame,thePile));
+			playersHand.add(createCard(testGame.getPlayers().get(0).getHand().get(i), testGame,thePile));
 		}
 		BorderLayout b = new BorderLayout();
 	  String[] ss = {b.SOUTH, b.WEST, b.NORTH, b.EAST};
@@ -187,6 +193,7 @@ public class ScumGui extends JFrame {
 			
 			}
 	}
+	
 	
 	
 	public static ArrayList<JLabel> displayPlayers(ArrayList<Player> players) {
@@ -216,70 +223,119 @@ public class ScumGui extends JFrame {
 	
 	
 	// Displays Players Hand {
-	public static JButton  displayCard(Card currentCard, Game game, JLabel pile) {
-		
+	public static JButton createCard(Card currentCard, Game game, JLabel pile) {
+
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		JButton button = new JButton("");
 		button.setBorder(emptyBorder);
 		button.setHorizontalAlignment(SwingConstants.CENTER);
-		//lblNewLabel.setIcon(new ImageIcon(ScumGui.class.getResource("/resources/10_of_clubs.png")));
-		System.out.println("/resources/" +currentCard.getName()
-				+"_of_" +currentCard.getSuit()+".png");
-		try{
-			Image image = ImageIO.read(ScumGui.class.getResource("/resources/" +currentCard.getName()
-					+"_of_" +currentCard.getSuit()+".png")).getScaledInstance(70, 100, Image.SCALE_DEFAULT); // Finally got it to fucking work    
+		// ImageIcon(ScumGui.class.getResource("/resources/10_of_clubs.png")));
+		System.out.println("/resources/" + currentCard.getName() + "_of_" + currentCard.getSuit() + ".png");
+		try {
+			Image image = ImageIO
+					.read(ScumGui.class.getResource(
+							"/resources/" + currentCard.getName() + "_of_" + currentCard.getSuit() + ".png"))
+					.getScaledInstance(70, 100, Image.SCALE_DEFAULT); 
 			ImageIcon test = new ImageIcon(image);
 			test.setDescription("" + currentCard.getValue() + " " + currentCard.getSuit());
 			button.setIcon(test);
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println("Bad Things Happening");
 		}
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-			String card = ((ImageIcon)button.getIcon()).getDescription();
-			
-			if(playCard(card, game) )
-					{
-				button.disable();
-				button.setVisible(false);
-				try{
-					Image image = ImageIO.read(ScumGui.class.getResource("/resources/" +currentCard.getName()
-							+"_of_" +currentCard.getSuit()+".png")).getScaledInstance(70, 100, Image.SCALE_DEFAULT); // Finally got it to fucking work    
-					ImageIcon test = new ImageIcon(image);
-					test.setDescription("" + currentCard.getValue() + " " + currentCard.getSuit());
-					pile.setIcon(test);
-				} 
-				catch (Exception e1) {
-					System.out.println("Bad Things Happening");
-				}
+
+				String card = ((ImageIcon) button.getIcon()).getDescription();
+
+				if (playCard(card, game)) {
+					button.disable();
+					button.setVisible(false);
+					try {
+						Image image = ImageIO
+								.read(ScumGui.class.getResource("/resources/" + currentCard.getName() + "_of_"
+										+ currentCard.getSuit() + ".png"))
+								.getScaledInstance(70, 100, Image.SCALE_DEFAULT); 
+						ImageIcon test = new ImageIcon(image);
+						test.setDescription("" + currentCard.getValue() + " " + currentCard.getSuit());
+						pile.setIcon(test);
+					} catch (Exception e1) {
+						System.out.println("Bad Things Happening");
 					}
+				}
 			}
 		});
-		
 		return button;
 	}
+	// creates players hand }
 	
 	
 	
+	//Takes a card played by the computer and places it in the middle pile
+	public static void computerPlayersCard(JLabel pile, Card currentCard) 
+	{
+		try{
+			Image image = ImageIO.read(ScumGui.class.getResource("/resources/" +currentCard.getName()
+					+"_of_" +currentCard.getSuit()+".png")).getScaledInstance(70, 100, Image.SCALE_DEFAULT);    
+			ImageIcon test = new ImageIcon(image);
+			test.setDescription("" + currentCard.getValue() + " " + currentCard.getSuit());
+			pile.setIcon(test);
+		} 
+		catch (Exception e1) {
+			System.out.println("Bad Things Happening");
+		}
+		
+		
+	}
 	
+	//Updating card count on AIPLAYERS decks
+	public static void updateCardCount(Player currentPlayer, JLabel currentLabel) 
+	{
+		
+	}
+	
+	public static JLabel youWin() 
+	{
+		JLabel win = new JLabel("You Win!!");
+		win.setHorizontalAlignment(SwingConstants.CENTER);
+		win.setFont(new Font("Times New Roman", Font.PLAIN, 61));
+		
+		return win;
+	}
+	
+	public static JLabel youLose() 
+	{
+		JLabel lose = new JLabel("You Lose...");
+		lose.setHorizontalAlignment(SwingConstants.CENTER);
+		lose.setFont(new Font("Times New Roman", Font.PLAIN, 61));
+		return lose;
+	}
+	
+	//Takes the information from the image and uses it to figure out what card is being played and then adds it to the playedCard array, IF this method returns true the card is deleted from players hands and placed in 
+	//the pile ONLY visually
 	public static boolean playCard(String Card, Game game) {
 	int tempInt = (Integer.parseInt(Card.substring(0, Card.indexOf(' '))));
 		ArrayList<Card> playedCard = new ArrayList();
 		for(int i = 0; i < game.getPlayers().get(0).getHand().size();i++)		
 		{
-//			//System.out.println(i);
-//			System.out.print("Value: " + game.getPlayers().get(0).getHand().get(i).getValue() +  " Name: " + tempInt );
-//			System.out.print("Suit: "+ game.getPlayers().get(0).getHand().get(i).getSuit() + "Suit: " + Card.substring(Card.indexOf(" ")+1));
-//			System.out.print(game.getPlayers().get(0).getHand().get(i).getValue() == tempInt);
-//			System.out.println(game.getPlayers().get(0).getHand().get(i).getSuit().toString().equals((Card.substring((Card.indexOf(" "))+1))));
+			//This IF statement matches the card clicked on visually with the card that is logically in the ArrayList of the players hand
 			if((game.getPlayers().get(0).getHand().get(i).getValue() == tempInt) && (game.getPlayers().get(0).getHand().get(i).getSuit().toString().equals(Card.substring(Card.indexOf(" ")+1))))
 			{
 			playedCard.add(game.getPlayers().get(0).getHand().get(i));
+			/*
+		     The playedCard array now holds the card that was clicked on by the user we now need to logically check and see if 
+		     this card is valid to be played by the user, and if it is then it need to be played, and this method needs to return true
+			 * 
+			 * 
+			 * 
+			 */
+			
+			
+			
 			System.out.println("It kinda works");
-			return true;
-			//game.getPlayers().get(i).playCards(playedCard, game.getTable());
+			
+			
+			
+			return true; 
 			
 			}
 		

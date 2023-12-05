@@ -77,9 +77,15 @@ public class Player {
 	 */
 	public boolean playCards (ArrayList<Card> cards, Table t) {
 		//Add check for if player is passed or reset passed boolean
-		getValidCards(t);
-		if(validCards.size() == 0 || cards.size() == 0 || validCards == null)
+		if(cards == null) {
 			passed = true;
+			return true;
+		}	
+		getValidCards(t);
+		if(validCards.size() == 0 || cards.size() == 0) {
+			passed = true;
+			return true;
+		}		
 		if(validCards.containsAll(cards)) {
 			for(int i = 0; i < cards.size()-1; i++) {
 				if(cards.get(i).equals(cards.get(i+1)))
@@ -104,6 +110,8 @@ public class Player {
 	 */
 	public ArrayList<Card> getValidCards(Table t) {
 		Collections.sort(hand);
+		if(t.getAmount() == 0)
+			return hand;
 		Card topCard = t.getTopCard();
 		int indexSplit = 0;
 		for(int i = 0; i < hand.size(); i++) {
